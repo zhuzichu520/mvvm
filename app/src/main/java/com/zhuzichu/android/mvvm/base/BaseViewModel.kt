@@ -1,10 +1,11 @@
 package com.zhuzichu.android.mvvm.base
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
-import com.zhuzichu.android.mvvm.event.SingleLiveEvent
+import com.zhuzichu.android.libs.event.SingleLiveEvent
 
 open class BaseViewModel : ViewModel(), IBaseViewModel {
 
@@ -41,9 +42,29 @@ open class BaseViewModel : ViewModel(), IBaseViewModel {
         uc.onBackPressedEvent.call()
     }
 
+    fun showLoading() {
+        uc.showLoadingEvent.call()
+    }
+
+    fun hideLoading() {
+        uc.hideLoadingEvent.call()
+    }
+
+    fun toast(text: String?) {
+        uc.toastStringEvent.value = text
+    }
+
+    fun toast(@StringRes id: Int) {
+        uc.toastStringResEvent.value = id
+    }
+
     inner class UIChangeLiveData {
         internal val startActivityEvent: SingleLiveEvent<Payload.Activity> = SingleLiveEvent()
         internal val startFragmentEvent: SingleLiveEvent<Payload.Fragment> = SingleLiveEvent()
         internal val onBackPressedEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+        internal val showLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+        internal val hideLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+        internal val toastStringEvent: SingleLiveEvent<String?> = SingleLiveEvent()
+        internal val toastStringResEvent: SingleLiveEvent<Int> = SingleLiveEvent()
     }
 }

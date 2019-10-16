@@ -10,12 +10,15 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import com.zhuzichu.android.libs.tool.closeKeyboard
+import com.zhuzichu.android.libs.tool.toCast
 import com.zhuzichu.android.mvvm.R
+import com.zhuzichu.android.widget.dialog.loading.LoadingMaker
+import com.zhuzichu.android.widget.toast.toast
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
@@ -49,7 +52,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         savedInstanceState: Bundle?
     ): View? {
         arguments?.let {
-            argument = it.getParcelable<BaseArgument>(KEY_ARGUMENT) as TArgument
+            argument = it.getParcelable<BaseArgument>(KEY_ARGUMENT).toCast()
         }
         binding = DataBindingUtil.inflate(
             inflater,
@@ -78,7 +81,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         val type = this::class.java.genericSuperclass
         if (type is ParameterizedType) {
             viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(type.actualTypeArguments[2] as Class<TViewModel>)
+                .get(type.actualTypeArguments[2].toCast())
         }
         binding?.setVariable(bindVariableId(), viewModel)
         lifecycle.addObserver(viewModel)
@@ -105,6 +108,27 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
 
         viewModel.uc.onBackPressedEvent.observe(this, Observer {
             activityCtx.onBackPressed()
+        })
+
+        viewModel.uc.showLoadingEvent.observe(this, Observer {
+            closeKeyboard(requireContext())
+            view?.postDelayed({
+                LoadingMaker.showLoadingDialog(requireContext())
+            }, 150)
+        })
+
+        viewModel.uc.hideLoadingEvent.observe(this, Observer {
+            view?.postDelayed({
+                LoadingMaker.dismissLodingDialog()
+            }, 150)
+        })
+
+        viewModel.uc.toastStringResEvent.observe(this, Observer {
+            it.toast(context = requireContext())
+        })
+
+        viewModel.uc.toastStringEvent.observe(this, Observer {
+            it.toast(context = requireContext())
         })
 
     }
