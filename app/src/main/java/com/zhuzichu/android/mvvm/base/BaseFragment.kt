@@ -16,11 +16,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.zhuzichu.android.mvvm.R
+import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
 abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
-    Fragment(), IBaseFragment {
+    DaggerFragment(), IBaseFragment {
 
     companion object {
         private const val KEY_ARGUMENT = "KEY_ARGUMENT"
@@ -105,6 +106,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         viewModel.uc.onBackPressedEvent.observe(this, Observer {
             activityCtx.onBackPressed()
         })
+
     }
 
     private fun getDefaultNavOptions(actionId: Int): NavOptions? {

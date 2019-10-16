@@ -3,11 +3,11 @@ package com.zhuzichu.android.mvvm.base
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.android.mvvm.R
+import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : DaggerAppCompatActivity() {
 
     abstract fun setNavGraph(): Int
 

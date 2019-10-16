@@ -1,4 +1,4 @@
-package com.zhuzichu.base.di
+package com.zhuzichu.android.mvvm.di
 
 import javax.inject.Scope
 
