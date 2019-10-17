@@ -24,7 +24,7 @@ import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
 abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
-    DaggerFragment(), IBaseFragment {
+    DaggerFragment(), IBaseFragment, IBaseCommon {
 
     companion object {
         private const val KEY_ARGUMENT = "KEY_ARGUMENT"
@@ -170,5 +170,25 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         super.onDestroyView()
         binding?.unbind()
         binding = null
+    }
+
+    override fun back() {
+        viewModel.back()
+    }
+
+    override fun showLoading() {
+        viewModel.showLoading()
+    }
+
+    override fun hideLoading() {
+        viewModel.hideLoading()
+    }
+
+    override fun toast(text: String?) {
+        viewModel.toast(text)
+    }
+
+    override fun toast(id: Int) {
+        viewModel.toast(id)
     }
 }

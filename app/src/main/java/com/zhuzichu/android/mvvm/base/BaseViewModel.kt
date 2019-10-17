@@ -5,9 +5,9 @@ import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
-import com.zhuzichu.android.libs.event.SingleLiveEvent
+import com.zhuzichu.android.mvvm.event.SingleLiveEvent
 
-open class BaseViewModel : ViewModel(), IBaseViewModel {
+open class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
 
     val uc by lazy { UIChangeLiveData() }
 
@@ -38,23 +38,23 @@ open class BaseViewModel : ViewModel(), IBaseViewModel {
         uc.startFragmentEvent.value = playload
     }
 
-    fun back() {
+    override fun back() {
         uc.onBackPressedEvent.call()
     }
 
-    fun showLoading() {
+    override fun showLoading() {
         uc.showLoadingEvent.call()
     }
 
-    fun hideLoading() {
+    override fun hideLoading() {
         uc.hideLoadingEvent.call()
     }
 
-    fun toast(text: String?) {
+    override fun toast(text: String?) {
         uc.toastStringEvent.value = text
     }
 
-    fun toast(@StringRes id: Int) {
+    override fun toast(@StringRes id: Int) {
         uc.toastStringResEvent.value = id
     }
 
