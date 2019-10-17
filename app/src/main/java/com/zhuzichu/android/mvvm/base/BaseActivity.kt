@@ -1,8 +1,8 @@
 package com.zhuzichu.android.mvvm.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.FrameLayout
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.android.mvvm.R
 import dagger.android.support.DaggerAppCompatActivity
@@ -11,8 +11,10 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     abstract fun setNavGraph(): Int
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    val navController by lazy { findNavController(R.id.delegate_container) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initContainer(savedInstanceState)
     }
 
@@ -27,5 +29,9 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
                 .setPrimaryNavigationFragment(fragment)
                 .commit()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
