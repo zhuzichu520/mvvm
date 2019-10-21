@@ -27,7 +27,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     DaggerFragment(), IBaseFragment, IBaseCommon {
 
     companion object {
-        private const val KEY_ARGUMENT = "KEY_ARGUMENT"
+        internal const val KEY_ARGUMENT = "KEY_ARGUMENT"
     }
 
     @Inject
@@ -130,7 +130,6 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         viewModel.uc.toastStringEvent.observe(this, Observer {
             it.toast(context = requireContext())
         })
-
     }
 
     private fun getDefaultNavOptions(actionId: Int): NavOptions? {
