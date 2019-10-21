@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
@@ -27,7 +28,17 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     DaggerFragment(), IBaseFragment, IBaseCommon {
 
     companion object {
+
         internal const val KEY_ARGUMENT = "KEY_ARGUMENT"
+
+        fun newInstance(argument: BaseArgument): Fragment {
+            val args = Bundle()
+            args.putParcelable(KEY_ARGUMENT, argument)
+            val fragment = Fragment()
+            fragment.arguments = args
+            return fragment
+        }
+
     }
 
     @Inject
