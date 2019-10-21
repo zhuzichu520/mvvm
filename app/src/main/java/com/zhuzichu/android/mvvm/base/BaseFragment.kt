@@ -28,17 +28,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     DaggerFragment(), IBaseFragment, IBaseCommon {
 
     companion object {
-
         internal const val KEY_ARGUMENT = "KEY_ARGUMENT"
-
-        fun newInstance(argument: BaseArgument): Fragment {
-            val args = Bundle()
-            args.putParcelable(KEY_ARGUMENT, argument)
-            val fragment = Fragment()
-            fragment.arguments = args
-            return fragment
-        }
-
     }
 
     @Inject
