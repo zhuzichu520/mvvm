@@ -2,6 +2,7 @@ package com.zhuzichu.android.mvvm.base
 
 import android.os.Bundle
 import android.widget.FrameLayout
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.android.mvvm.R
@@ -25,7 +26,8 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         setContentView(container)
         if (savedInstanceState == null) {
             val fragment = NavHostFragment.create(setNavGraph())
-            fragment.arguments = intent.getParcelableExtra(KEY_ARGUMENT)
+            fragment.arguments =
+                bundleOf(KEY_ARGUMENT to intent.getParcelableExtra(KEY_ARGUMENT))
             supportFragmentManager.beginTransaction()
                 .replace(R.id.delegate_container, fragment)
                 .setPrimaryNavigationFragment(fragment)
