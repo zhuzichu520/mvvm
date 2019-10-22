@@ -26,13 +26,22 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         setContentView(container)
         if (savedInstanceState == null) {
             val fragment = NavHostFragment.create(setNavGraph())
-            fragment.arguments =
-                bundleOf(KEY_ARGUMENT to intent.getParcelableExtra(KEY_ARGUMENT))
+            initArgument(fragment)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.delegate_container, fragment)
                 .setPrimaryNavigationFragment(fragment)
                 .commit()
         }
+    }
+
+    private fun initArgument(fragment: NavHostFragment) {
+        var bundle = fragment.arguments
+        if (bundle != null) {
+            bundle.putParcelable(KEY_ARGUMENT, intent.getParcelableExtra(KEY_ARGUMENT))
+        } else {
+            bundle = bundleOf(KEY_ARGUMENT to intent.getParcelableExtra(KEY_ARGUMENT))
+        }
+        fragment.arguments = bundle
     }
 
     override fun onSupportNavigateUp(): Boolean {
