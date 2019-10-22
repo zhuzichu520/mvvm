@@ -7,7 +7,7 @@ internal sealed class Payload {
 
     data class Activity(
         var clz: Class<*>,
-        var argument: BaseArgument = DefaultArgument(),
+        var argument: BaseArgument = ArgumentDefault(),
         var isPop: Boolean = false,
         var options: Bundle = bundleOf(),
         var requestCode: Int = 0
@@ -15,7 +15,7 @@ internal sealed class Payload {
 
     data class Fragment(
         var actionId: Int,
-        var argument: BaseArgument = DefaultArgument()
+        var argument: BaseArgument = ArgumentDefault()
     )
 
 }

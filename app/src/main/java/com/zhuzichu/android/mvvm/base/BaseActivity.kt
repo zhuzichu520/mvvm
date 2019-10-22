@@ -5,6 +5,7 @@ import android.widget.FrameLayout
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.android.mvvm.R
+import com.zhuzichu.android.mvvm.base.BaseFragment.Companion.KEY_ARGUMENT
 import dagger.android.support.DaggerAppCompatActivity
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
@@ -24,6 +25,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         setContentView(container)
         if (savedInstanceState == null) {
             val fragment = NavHostFragment.create(setNavGraph())
+            fragment.arguments = intent.getParcelableExtra(KEY_ARGUMENT)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.delegate_container, fragment)
                 .setPrimaryNavigationFragment(fragment)

@@ -27,7 +27,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     DaggerFragment(), IBaseFragment, IBaseCommon {
 
     companion object {
-        private const val KEY_ARGUMENT = "KEY_ARGUMENT"
+        internal const val KEY_ARGUMENT = "KEY_ARGUMENT"
     }
 
     @Inject
@@ -202,5 +202,4 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         arguments = bundle
         return this
     }
-
 }
