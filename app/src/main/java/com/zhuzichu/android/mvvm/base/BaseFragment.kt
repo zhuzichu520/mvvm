@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
@@ -190,5 +189,16 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
 
     override fun toast(id: Int) {
         viewModel.toast(id)
+    }
+
+    fun putArgument(argument: BaseArgument): BaseFragment<*, *, *> {
+        var bundle = arguments
+        if (bundle != null) {
+            bundle.putParcelable(KEY_ARGUMENT, argument)
+        } else {
+            bundle = bundleOf(KEY_ARGUMENT to argument)
+        }
+        arguments = bundle
+        return this
     }
 }
