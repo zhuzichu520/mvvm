@@ -101,7 +101,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         viewModel.uc.startFragmentEvent.observe(this, Observer {
             navController.navigate(
                 it.actionId,
-                bundleOf(KEY_ARGUMENT to it.actionId),
+                bundleOf(KEY_ARGUMENT to it.argument),
                 getDefaultNavOptions(it.actionId)
             )
         })
