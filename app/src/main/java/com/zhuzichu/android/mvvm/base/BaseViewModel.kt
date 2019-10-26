@@ -17,12 +17,12 @@ open class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
         this.lifecycleOwner = viewLifecycleOwner
     }
 
-    fun startActivity(
+    override fun startActivity(
         clz: Class<*>,
-        argument: BaseArgument = ArgumentDefault(),
-        isPop: Boolean = false,
-        options: Bundle = bundleOf(),
-        requestCode: Int = 0
+        argument: BaseArgument,
+        isPop: Boolean,
+        options: Bundle,
+        requestCode: Int
     ) {
         val playload = Payload.Activity(clz)
         playload.argument = argument
@@ -32,7 +32,7 @@ open class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
         uc.startActivityEvent.value = playload
     }
 
-    fun startFragment(actionId: Int, argument: BaseArgument = ArgumentDefault()) {
+    override fun startFragment(actionId: Int, argument: BaseArgument) {
         val playload = Payload.Fragment(actionId)
         playload.argument = argument
         uc.startFragmentEvent.value = playload

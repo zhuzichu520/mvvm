@@ -192,6 +192,20 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         viewModel.toast(id)
     }
 
+    override fun startActivity(
+        clz: Class<*>,
+        argument: BaseArgument,
+        isPop: Boolean,
+        options: Bundle,
+        requestCode: Int
+    ) {
+        viewModel.startActivity(clz, argument, isPop, options, requestCode)
+    }
+
+    override fun startFragment(actionId: Int, argument: BaseArgument) {
+        viewModel.startFragment(actionId, argument)
+    }
+
     fun putArgument(argument: BaseArgument): BaseFragment<*, *, *> {
         var bundle = arguments
         if (bundle != null) {
