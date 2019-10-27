@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.AnimBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.zhuzichu.android.libs.tool.closeKeyboard
@@ -102,7 +103,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
             navController.navigate(
                 it.actionId,
                 bundleOf(KEY_ARGUMENT to it.argument),
-                getDefaultNavOptions(it.actionId)
+                getDefaultNavOptions(it.actionId, it.animBuilder)
             )
         })
 
@@ -133,17 +134,15 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
 
     }
 
-    private fun getDefaultNavOptions(actionId: Int): NavOptions? {
+    private fun getDefaultNavOptions(
+        actionId: Int,
+        animBuilder: AnimBuilder.() -> Unit
+    ): NavOptions? {
         val navOptions = navController.currentDestination?.getAction(actionId)?.navOptions
         var options: NavOptions? = null
         navOptions?.let {
             options = androidx.navigation.navOptions {
-                anim {
-                    enter = R.anim.slide_in_right
-                    exit = R.anim.slide_out_left
-                    popEnter = R.anim.slide_in_left
-                    popExit = R.anim.slide_out_right
-                }
+                anim(animBuilder)
                 launchSingleTop = navOptions.shouldLaunchSingleTop()
                 popUpTo(navOptions.popUpTo) {
                     this.inclusive = navOptions.isPopUpToInclusive
@@ -202,8 +201,12 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         viewModel.startActivity(clz, argument, isPop, options, requestCode)
     }
 
-    override fun startFragment(actionId: Int, argument: BaseArgument) {
-        viewModel.startFragment(actionId, argument)
+    override fun startFragment(
+        actionId: Int,
+        argument: BaseArgument,
+        animBuilder: AnimBuilder.() -> Unit
+    ) {
+        viewModel.startFragment(actionId, argument, animBuilder)
     }
 
     fun putArgument(argument: BaseArgument): BaseFragment<*, *, *> {

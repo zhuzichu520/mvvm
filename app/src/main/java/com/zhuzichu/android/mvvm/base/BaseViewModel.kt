@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
+import androidx.navigation.AnimBuilder
 import com.zhuzichu.android.mvvm.event.SingleLiveEvent
 
 open class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
@@ -32,9 +33,14 @@ open class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
         uc.startActivityEvent.value = playload
     }
 
-    override fun startFragment(actionId: Int, argument: BaseArgument) {
+    override fun startFragment(
+        actionId: Int,
+        argument: BaseArgument,
+        animBuilder: AnimBuilder.() -> Unit
+    ) {
         val playload = Payload.Fragment(actionId)
         playload.argument = argument
+        playload.animBuilder = animBuilder
         uc.startFragmentEvent.value = playload
     }
 
