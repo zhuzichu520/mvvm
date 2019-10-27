@@ -2,6 +2,7 @@ package com.zhuzichu.android.mvvm.base
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModel
+import androidx.navigation.AnimBuilder
 
 
 open class ItemViewModel(
@@ -38,8 +39,12 @@ open class ItemViewModel(
         viewModel.startActivity(clz, argument, isPop, options, requestCode)
     }
 
-    override fun startFragment(actionId: Int, argument: BaseArgument) {
-        viewModel.startFragment(actionId, argument)
+    override fun startFragment(
+        actionId: Int,
+        argument: BaseArgument,
+        animBuilder: AnimBuilder.() -> Unit
+    ) {
+        viewModel.startFragment(actionId, argument, animBuilder)
     }
 
 }
