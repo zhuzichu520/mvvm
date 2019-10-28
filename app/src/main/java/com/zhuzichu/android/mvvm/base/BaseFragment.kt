@@ -87,7 +87,6 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         binding?.setVariable(bindVariableId(), viewModel)
         lifecycle.addObserver(viewModel)
         viewModel.injectLifecycleOwner(viewLifecycleOwner)
-        viewModel.injectArgument(argument)
     }
 
     private fun registUIChangeLiveDataCallback() {

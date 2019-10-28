@@ -5,7 +5,6 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.navigation.AnimBuilder
-import com.zhuzichu.android.libs.tool.toCast
 import com.zhuzichu.android.mvvm.event.SingleLiveEvent
 
 open class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
@@ -14,18 +13,8 @@ open class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
 
     lateinit var lifecycleOwner: LifecycleOwner
 
-    private lateinit var argument: BaseArgument
-
     fun injectLifecycleOwner(viewLifecycleOwner: LifecycleOwner) {
         this.lifecycleOwner = viewLifecycleOwner
-    }
-
-    fun injectArgument(argument: BaseArgument) {
-        this.argument = argument
-    }
-
-    fun <TArgument : BaseArgument> getArgument(): TArgument {
-        return this.argument.toCast()
     }
 
     override fun startActivity(
