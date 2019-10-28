@@ -6,7 +6,7 @@ import androidx.navigation.AnimBuilder
 
 
 open class ItemViewModel(
-    private val viewModel: BaseViewModel
+    private val viewModel: BaseViewModel<*>
 ) : ViewModel(), IBaseCommon {
 
     override fun back() {

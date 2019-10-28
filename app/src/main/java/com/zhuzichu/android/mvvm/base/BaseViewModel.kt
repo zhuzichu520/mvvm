@@ -5,16 +5,23 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.navigation.AnimBuilder
+import com.zhuzichu.android.libs.tool.toCast
 import com.zhuzichu.android.mvvm.event.SingleLiveEvent
 
-open class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
+open class BaseViewModel<TArgument : BaseArgument> : ViewModel(), LifecycleViewModel, IBaseCommon {
 
     val uc by lazy { UIChangeLiveData() }
 
     lateinit var lifecycleOwner: LifecycleOwner
 
+    lateinit var argument: TArgument
+
     fun injectLifecycleOwner(viewLifecycleOwner: LifecycleOwner) {
         this.lifecycleOwner = viewLifecycleOwner
+    }
+
+    fun injectArgument(argument: BaseArgument) {
+        this.argument = argument.toCast()
     }
 
     override fun startActivity(
