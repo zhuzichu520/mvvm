@@ -37,9 +37,9 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     private fun initArgument(fragment: NavHostFragment) {
         var bundle = fragment.arguments
         if (bundle != null) {
-            bundle.putParcelable(KEY_ARGUMENT, intent.getParcelableExtra(KEY_ARGUMENT))
+            bundle.putParcelable(KEY_ARGUMENT, intent.getParcelableExtra(KEY_ARGUMENT)?:ArgumentDefault())
         } else {
-            bundle = bundleOf(KEY_ARGUMENT to intent.getParcelableExtra(KEY_ARGUMENT))
+            bundle = bundleOf(KEY_ARGUMENT to (intent.getParcelableExtra(KEY_ARGUMENT)?:ArgumentDefault()))
         }
         fragment.arguments = bundle
     }
