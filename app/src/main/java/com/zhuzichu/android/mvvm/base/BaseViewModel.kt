@@ -2,7 +2,6 @@ package com.zhuzichu.android.mvvm.base
 
 import android.os.Bundle
 import androidx.annotation.StringRes
-import androidx.core.os.bundleOf
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.navigation.AnimBuilder
@@ -45,23 +44,23 @@ open class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
     }
 
     override fun back() {
-        uc.onBackPressedEvent.call()
+        uc.onBackPressedEvent.postCall()
     }
 
     override fun showLoading() {
-        uc.showLoadingEvent.call()
+        uc.showLoadingEvent.postCall()
     }
 
     override fun hideLoading() {
-        uc.hideLoadingEvent.call()
+        uc.hideLoadingEvent.postCall()
     }
 
     override fun toast(text: String?) {
-        uc.toastStringEvent.value = text
+        uc.toastStringEvent.postValue(text)
     }
 
     override fun toast(@StringRes id: Int) {
-        uc.toastStringResEvent.value = id
+        uc.toastStringResEvent.postValue(id)
     }
 
     inner class UIChangeLiveData {

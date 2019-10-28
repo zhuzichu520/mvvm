@@ -35,6 +35,15 @@ open class SingleLiveEvent<T> : MutableLiveData<T>() {
         value = null
     }
 
+    override fun postValue(@Nullable value: T?) {
+        mPending.set(true)
+        super.postValue(value)
+    }
+
+    fun postCall() {
+        postValue(null)
+    }
+
     companion object {
         private const val TAG = "SingleLiveEvent"
     }
