@@ -54,7 +54,6 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     ): View? {
         arguments?.let {
             argument = it.getParcelable<BaseArgument>(KEY_ARGUMENT).toCast()
-            viewModel.injectArgument(argument)
         }
         binding = DataBindingUtil.inflate(
             inflater,
@@ -88,6 +87,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         binding?.setVariable(bindVariableId(), viewModel)
         lifecycle.addObserver(viewModel)
         viewModel.injectLifecycleOwner(viewLifecycleOwner)
+        viewModel.injectArgument(argument)
     }
 
     private fun registUIChangeLiveDataCallback() {
