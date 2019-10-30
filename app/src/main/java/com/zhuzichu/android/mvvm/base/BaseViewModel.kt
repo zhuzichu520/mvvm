@@ -2,22 +2,15 @@ package com.zhuzichu.android.mvvm.base
 
 import android.os.Bundle
 import androidx.annotation.StringRes
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.navigation.AnimBuilder
 import com.zhuzichu.android.mvvm.event.SingleLiveEvent
 
-open class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
+abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
 
     val uc by lazy { UIChangeLiveData() }
 
-    lateinit var lifecycleOwner: LifecycleOwner
-
-    fun injectLifecycleOwner(viewLifecycleOwner: LifecycleOwner) {
-        this.lifecycleOwner = viewLifecycleOwner
-    }
-
-    override fun startActivity(
+   override fun startActivity(
         clz: Class<*>,
         argument: BaseArgument,
         isPop: Boolean,

@@ -86,7 +86,6 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         }
         binding?.setVariable(bindVariableId(), viewModel)
         lifecycle.addObserver(viewModel)
-        viewModel.injectLifecycleOwner(viewLifecycleOwner)
     }
 
     private fun registUIChangeLiveDataCallback() {
@@ -115,13 +114,13 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
             closeKeyboard(requireContext())
             view?.postDelayed({
                 LoadingMaker.showLoadingDialog(requireContext())
-            }, 150)
+            }, 75)
         })
 
         viewModel.uc.hideLoadingEvent.observe(this, Observer {
             view?.postDelayed({
                 LoadingMaker.dismissLodingDialog()
-            }, 150)
+            }, 75)
         })
 
         viewModel.uc.toastStringResEvent.observe(this, Observer {
