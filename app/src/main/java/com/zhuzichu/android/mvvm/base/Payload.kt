@@ -7,7 +7,7 @@ import com.zhuzichu.android.mvvm.R
 
 internal sealed class Payload {
 
-    data class Activity(
+    internal data class Activity(
         var clz: Class<*>,
         var argument: BaseArgument = ArgumentDefault(),
         var isPop: Boolean = false,
@@ -15,7 +15,7 @@ internal sealed class Payload {
         var requestCode: Int = 0
     )
 
-    data class Fragment(
+    internal data class Fragment(
         var actionId: Int,
         var argument: BaseArgument = ArgumentDefault(),
         var animBuilder: AnimBuilder.() -> Unit = {
