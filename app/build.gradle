@@ -56,7 +56,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:2.24"
 
     implementation 'com.github.zhuzichu520:libs:1.0.21'
-    implementation 'com.github.zhuzichu520:widget:1.0.21'
+    implementation 'com.github.zhuzichu520:widget:1.0.24'
 
 
 }
