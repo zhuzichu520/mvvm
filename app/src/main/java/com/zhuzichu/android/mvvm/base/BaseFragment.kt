@@ -69,8 +69,9 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         initVariable()
         initView()
         initViewObservable()
+        initData()
         if (!viewModel.isInitData) {
-            initData()
+            initFirstData()
             viewModel.isInitData = true
         }
     }

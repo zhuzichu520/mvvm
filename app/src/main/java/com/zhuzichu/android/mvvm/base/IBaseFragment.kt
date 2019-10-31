@@ -10,6 +10,7 @@ interface IBaseFragment {
 
     fun initData() {}
 
-    fun initLazyData() {}
+    fun initFirstData() {}
 
+    fun initLazyData() {}
 }
