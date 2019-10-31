@@ -56,11 +56,11 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         options: Bundle = bundleOf(),
         requestCode: Int = 0
     ) {
-        val intent = Intent(this, clz)
+        val intent = Intent(baseContext, clz)
         intent.putExtra(KEY_ARGUMENT, argument)
         startActivityForResult(intent, requestCode, options)
         if (isPop) {
-            this.finish()
+            finish()
         }
     }
 
