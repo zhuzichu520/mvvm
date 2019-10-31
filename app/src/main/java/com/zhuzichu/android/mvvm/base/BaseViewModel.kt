@@ -10,7 +10,10 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
 
     val uc by lazy { UIChangeLiveData() }
 
-   override fun startActivity(
+     var isInitData = false
+     var isInitLazy = false
+
+    override fun startActivity(
         clz: Class<*>,
         argument: BaseArgument,
         isPop: Boolean,

@@ -34,9 +34,6 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private var isInitData = false
-    private var isInitLazy = false
-
     var binding: TBinding? = null
     lateinit var viewModel: TViewModel
     lateinit var argument: TArgument
@@ -72,9 +69,9 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         initVariable()
         initView()
         initViewObservable()
-        if (!isInitData) {
+        if (!viewModel.isInitData) {
             initData()
-            isInitData = true
+            viewModel.isInitData = true
         }
     }
 
@@ -158,9 +155,9 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
 
     override fun onResume() {
         super.onResume()
-        if (!isInitLazy) {
+        if (!viewModel.isInitLazy) {
             initLazyData()
-            isInitLazy = true
+            viewModel.isInitLazy = true
         }
     }
 
