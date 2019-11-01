@@ -49,10 +49,8 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         argument =
             (arguments?.getParcelable<BaseArgument>(KEY_ARGUMENT) ?: ArgumentDefault()).toCast()
-
         binding = DataBindingUtil.inflate(
             inflater,
             setLayoutId(),
