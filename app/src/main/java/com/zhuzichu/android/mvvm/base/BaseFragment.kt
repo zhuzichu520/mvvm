@@ -29,7 +29,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     DaggerFragment(), IBaseFragment, IBaseCommon {
 
     companion object {
-        internal const val KEY_ARGUMENT = "  "
+        internal const val KEY_ARGUMENT = "KEY_ARGUMENT"
     }
 
     @Inject
@@ -206,16 +206,5 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         animBuilder: AnimBuilder.() -> Unit
     ) {
         viewModel.startFragment(actionId, argument, animBuilder)
-    }
-
-    fun putArgument(argument: BaseArgument): BaseFragment<*, *, *> {
-        var bundle = arguments
-        if (bundle != null) {
-            bundle.putParcelable(KEY_ARGUMENT, argument)
-        } else {
-            bundle = bundleOf(KEY_ARGUMENT to argument)
-        }
-        arguments = bundle
-        return this
     }
 }
