@@ -13,7 +13,7 @@ class BindingCommand<T>(
         }
     }
 
-    fun execute(parameter: Any) {
+    fun execute(parameter: Any?) {
         if (canExecute0()) {
             consumer?.invoke(parameter.toCast())
         }
