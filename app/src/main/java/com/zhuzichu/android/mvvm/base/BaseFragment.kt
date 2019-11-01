@@ -29,7 +29,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     DaggerFragment(), IBaseFragment, IBaseCommon {
 
     companion object {
-        internal const val KEY_ARGUMENT = "KEY_ARGUMENT"
+        internal const val KEY_ARGUMENT = "  "
     }
 
     @Inject
@@ -49,9 +49,8 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        argument = arguments?.getParcelable(KEY_ARGUMENT)!!
-
+        argument = (requireArguments().getParcelable<BaseArgument>(KEY_ARGUMENT)
+            ?: ArgumentDefault()).toCast()
         binding = DataBindingUtil.inflate(
             inflater,
             setLayoutId(),
