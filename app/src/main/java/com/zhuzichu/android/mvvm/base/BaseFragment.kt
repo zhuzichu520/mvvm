@@ -78,10 +78,13 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
 
     private fun initViewDataBinding() {
         val type = this::class.java.genericSuperclass
-        if (type is ParameterizedType) {
-            viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(type.actualTypeArguments[2].toCast())
+        val modelClass = if (type is ParameterizedType) {
+            type.actualTypeArguments[2]
+        } else {
+            BaseViewModel::class.java
         }
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(modelClass.toCast())
         binding?.setVariable(bindVariableId(), viewModel)
         lifecycle.addObserver(viewModel)
     }
