@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.android.mvvm.R
@@ -26,8 +27,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         container.id = R.id.delegate_container
         setContentView(container)
         if (savedInstanceState == null) {
-            val fragment = NavHostFragment.create(setNavGraph())
-            initArgument(fragment)
+            val fragment = createHostFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.delegate_container, fragment)
                 .setPrimaryNavigationFragment(fragment)
@@ -35,14 +35,10 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         }
     }
 
-    private fun initArgument(fragment: NavHostFragment) {
-        var bundle = fragment.arguments
-        if (bundle != null) {
-            bundle.putParcelable(KEY_ARGUMENT, intent.getParcelableExtra(KEY_ARGUMENT)?:ArgumentDefault())
-        } else {
-            bundle = bundleOf(KEY_ARGUMENT to (intent.getParcelableExtra(KEY_ARGUMENT)?:ArgumentDefault()))
-        }
-        fragment.arguments = bundle
+    private fun createHostFragment(): Fragment {
+        val argument = intent.getParcelableExtra<BaseArgument>(KEY_ARGUMENT)
+            ?: ArgumentDefault()
+        return NavHostFragment.create(setNavGraph(), bundleOf(KEY_ARGUMENT to argument))
     }
 
     override fun onSupportNavigateUp(): Boolean {
