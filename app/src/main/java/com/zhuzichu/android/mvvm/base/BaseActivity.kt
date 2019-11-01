@@ -38,9 +38,9 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     private fun initArgument(fragment: NavHostFragment) {
         var bundle = fragment.arguments
         if (bundle != null) {
-            bundle.putParcelable(KEY_ARGUMENT, intent.getParcelableExtra(KEY_ARGUMENT))
+            bundle.putParcelable(KEY_ARGUMENT, intent.getParcelableExtra(KEY_ARGUMENT)?:ArgumentDefault())
         } else {
-            bundle = bundleOf(KEY_ARGUMENT to intent.getParcelableExtra(KEY_ARGUMENT))
+            bundle = bundleOf(KEY_ARGUMENT to (intent.getParcelableExtra(KEY_ARGUMENT)?:ArgumentDefault()))
         }
         fragment.arguments = bundle
     }
@@ -56,11 +56,11 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         options: Bundle = bundleOf(),
         requestCode: Int = 0
     ) {
-        val intent = Intent(this, clz)
+        val intent = Intent(baseContext, clz)
         intent.putExtra(KEY_ARGUMENT, argument)
         startActivityForResult(intent, requestCode, options)
         if (isPop) {
-            this.finish()
+            finish()
         }
     }
 
