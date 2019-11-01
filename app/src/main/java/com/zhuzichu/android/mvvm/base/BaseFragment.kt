@@ -206,14 +206,4 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         viewModel.startFragment(actionId, argument, animBuilder)
     }
 
-    fun putArgument(argument: BaseArgument): BaseFragment<*, *, *> {
-        var bundle = arguments
-        if (bundle != null) {
-            bundle.putParcelable(KEY_ARGUMENT, argument)
-        } else {
-            bundle = bundleOf(KEY_ARGUMENT to argument)
-        }
-        arguments = bundle
-        return this
-    }
 }
