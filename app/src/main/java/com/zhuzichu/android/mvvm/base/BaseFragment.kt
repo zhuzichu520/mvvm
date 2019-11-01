@@ -50,7 +50,8 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         savedInstanceState: Bundle?
     ): View? {
 
-        argument=   (arguments?.getParcelable<BaseArgument>(KEY_ARGUMENT)?:ArgumentDefault()).toCast()
+        argument =
+            (arguments?.getParcelable<BaseArgument>(KEY_ARGUMENT) ?: ArgumentDefault()).toCast()
 
         binding = DataBindingUtil.inflate(
             inflater,
@@ -83,8 +84,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         } else {
             BaseViewModel::class.java
         }
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(modelClass.toCast())
+        viewModel = ViewModelProvider(this, viewModelFactory).get(modelClass.toCast())
         binding?.setVariable(bindVariableId(), viewModel)
         lifecycle.addObserver(viewModel)
     }
