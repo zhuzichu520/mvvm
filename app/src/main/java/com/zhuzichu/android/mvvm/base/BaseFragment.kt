@@ -24,6 +24,7 @@ import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
+
 abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
     DaggerFragment(), IBaseFragment, IBaseCommon {
 
@@ -35,10 +36,9 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     var binding: TBinding? = null
-    lateinit var viewModel: TViewModel
     lateinit var argument: TArgument
+    lateinit var viewModel: TViewModel
     lateinit var activityCtx: Activity
-
     val navController by lazy { activityCtx.findNavController(R.id.delegate_container) }
 
     abstract fun setLayoutId(): Int
@@ -49,9 +49,9 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        arguments?.let {
-            argument = it.getParcelable<BaseArgument>(KEY_ARGUMENT).toCast()
-        }
+
+        argument = arguments?.getParcelable(KEY_ARGUMENT)!!
+
         binding = DataBindingUtil.inflate(
             inflater,
             setLayoutId(),
@@ -78,10 +78,13 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
 
     private fun initViewDataBinding() {
         val type = this::class.java.genericSuperclass
-        if (type is ParameterizedType) {
-            viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(type.actualTypeArguments[2].toCast())
+        val modelClass = if (type is ParameterizedType) {
+            type.actualTypeArguments[2].toCast()
+        } else {
+            BaseViewModel::class.java
         }
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(modelClass).toCast()
         binding?.setVariable(bindVariableId(), viewModel)
         lifecycle.addObserver(viewModel)
     }

@@ -16,7 +16,7 @@ class ResponseCommand<T, R>(
 
     fun execute(parameter: Any?): R? {
         if (canExecute0()) {
-            consumer?.invoke(parameter.toCast())
+            consumer?.invoke(parameter?.toCast())
         }
         return null
     }
