@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.android.mvvm.R
@@ -27,7 +26,8 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         container.id = R.id.delegate_container
         setContentView(container)
         if (savedInstanceState == null) {
-            val fragment = createHostFragment()
+            val fragment = NavHostFragment.create(setNavGraph())
+            initArgument(fragment)
             supportFragmentManager.beginTransaction()
                 .replace(R.id.delegate_container, fragment)
                 .setPrimaryNavigationFragment(fragment)
@@ -35,10 +35,14 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         }
     }
 
-    private fun createHostFragment(): Fragment {
-        val argument = intent.getParcelableExtra<BaseArgument>(KEY_ARGUMENT)
-            ?: ArgumentDefault()
-        return NavHostFragment.create(setNavGraph(), bundleOf(KEY_ARGUMENT to argument))
+    private fun initArgument(fragment: NavHostFragment) {
+        var bundle = fragment.arguments
+        if (bundle != null) {
+            bundle.putParcelable(KEY_ARGUMENT, intent.getParcelableExtra(KEY_ARGUMENT))
+        } else {
+            bundle = bundleOf(KEY_ARGUMENT to intent.getParcelableExtra(KEY_ARGUMENT))
+        }
+        fragment.arguments = bundle
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -52,11 +56,11 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         options: Bundle = bundleOf(),
         requestCode: Int = 0
     ) {
-        val intent = Intent(baseContext, clz)
+        val intent = Intent(this, clz)
         intent.putExtra(KEY_ARGUMENT, argument)
         startActivityForResult(intent, requestCode, options)
         if (isPop) {
-            finish()
+            this.finish()
         }
     }
 
