@@ -27,7 +27,7 @@ interface IBaseCommon {
 
     fun startFragment(
         actionId: Int,
-        args: Bundle,
+        args: Bundle? = null,
         animBuilder: AnimBuilder.() -> Unit = {
             enter = R.anim.slide_in_right
             exit = R.anim.slide_out_left

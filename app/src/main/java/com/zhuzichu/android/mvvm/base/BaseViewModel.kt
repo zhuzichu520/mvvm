@@ -28,7 +28,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
 
     override fun startFragment(
         actionId: Int,
-        args: Bundle,
+        args: Bundle?,
         animBuilder: AnimBuilder.() -> Unit
     ) {
         val playload = Payload.Fragment(actionId)

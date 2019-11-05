@@ -191,10 +191,10 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
 
     override fun startFragment(
         actionId: Int,
-        args: Bundle,
+        args: Bundle?,
         animBuilder: AnimBuilder.() -> Unit
     ) {
-        viewModel.startFragment(actionId,args, animBuilder)
+        viewModel.startFragment(actionId, args, animBuilder)
     }
 
 }
