@@ -12,6 +12,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.AnimBuilder
+import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.zhuzichu.android.libs.tool.closeKeyboard
@@ -88,12 +89,16 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
             }
         })
 
-        viewModel.uc.startFragmentEvent.observe(this, Observer {
+        viewModel.uc.startFragmentByResIdEvent.observe(this, Observer {
             navController.navigate(
                 it.resId,
                 it.args,
                 getDefaultNavOptions(it.resId, it.animBuilder)
             )
+        })
+
+        viewModel.uc.startFragmentByNavDirectionsEvent.observe(this, Observer {
+            navController.navigate(it)
         })
 
         viewModel.uc.onBackPressedEvent.observe(this, Observer {
@@ -195,6 +200,10 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
         animBuilder: AnimBuilder.() -> Unit
     ) {
         viewModel.startFragment(actionId, args, animBuilder)
+    }
+
+    override fun startFragment(navDirections: NavDirections) {
+        viewModel.startFragment(navDirections)
     }
 
 }

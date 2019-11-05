@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.navigation.AnimBuilder
+import androidx.navigation.NavDirections
 import com.zhuzichu.android.mvvm.event.SingleLiveEvent
 
 abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
@@ -34,7 +35,11 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
         val playload = Payload.Fragment(actionId)
         playload.args = args
         playload.animBuilder = animBuilder
-        uc.startFragmentEvent.value = playload
+        uc.startFragmentByResIdEvent.value = playload
+    }
+
+    override fun startFragment(navDirections: NavDirections) {
+        uc.startFragmentByNavDirectionsEvent.value = navDirections
     }
 
     override fun back() {
@@ -57,9 +62,13 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
         uc.toastStringResEvent.postValue(id)
     }
 
+
     inner class UIChangeLiveData {
         internal val startActivityEvent: SingleLiveEvent<Payload.Activity> = SingleLiveEvent()
-        internal val startFragmentEvent: SingleLiveEvent<Payload.Fragment> = SingleLiveEvent()
+        internal val startFragmentByResIdEvent: SingleLiveEvent<Payload.Fragment> =
+            SingleLiveEvent()
+        internal val startFragmentByNavDirectionsEvent: SingleLiveEvent<NavDirections> =
+            SingleLiveEvent()
         internal val onBackPressedEvent: SingleLiveEvent<Any> = SingleLiveEvent()
         internal val showLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
         internal val hideLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()

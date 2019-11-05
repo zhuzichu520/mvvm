@@ -3,7 +3,9 @@ package com.zhuzichu.android.mvvm.base
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
+import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.AnimBuilder
+import androidx.navigation.NavDirections
 import com.zhuzichu.android.mvvm.R
 
 interface IBaseCommon {
@@ -36,5 +38,8 @@ interface IBaseCommon {
         }
     )
 
+    fun startFragment(
+        navDirections: NavDirections
+    )
 
 }
