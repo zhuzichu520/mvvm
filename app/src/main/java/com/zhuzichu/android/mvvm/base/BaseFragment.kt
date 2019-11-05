@@ -78,7 +78,7 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     private fun initViewDataBinding() {
         val type = this::class.java.genericSuperclass
         val modelClass = if (type is ParameterizedType) {
-            type.actualTypeArguments[2]
+            type.actualTypeArguments[1]
         } else {
             BaseViewModel::class.java
         }
