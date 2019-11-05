@@ -20,7 +20,6 @@ interface IBaseCommon {
 
     fun startActivity(
         clz: Class<*>,
-        argument: BaseArgument = ArgumentDefault(),
         isPop: Boolean = false,
         options: Bundle = bundleOf(),
         requestCode: Int = 0
@@ -28,7 +27,7 @@ interface IBaseCommon {
 
     fun startFragment(
         actionId: Int,
-        argument: BaseArgument = ArgumentDefault(),
+        args: Bundle? = null,
         animBuilder: AnimBuilder.() -> Unit = {
             enter = R.anim.slide_in_right
             exit = R.anim.slide_out_left

@@ -31,20 +31,19 @@ open class ItemViewModel(
 
     override fun startActivity(
         clz: Class<*>,
-        argument: BaseArgument,
         isPop: Boolean,
         options: Bundle,
         requestCode: Int
     ) {
-        viewModel.startActivity(clz, argument, isPop, options, requestCode)
+        viewModel.startActivity(clz, isPop, options, requestCode)
     }
 
     override fun startFragment(
         actionId: Int,
-        argument: BaseArgument,
+        args: Bundle?,
         animBuilder: AnimBuilder.() -> Unit
     ) {
-        viewModel.startFragment(actionId, argument, animBuilder)
+        viewModel.startFragment(actionId, args, animBuilder)
     }
 
 }

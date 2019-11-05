@@ -10,18 +10,16 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
 
     val uc by lazy { UIChangeLiveData() }
 
-     var isInitData = false
-     var isInitLazy = false
+    var isInitData = false
+    var isInitLazy = false
 
     override fun startActivity(
         clz: Class<*>,
-        argument: BaseArgument,
         isPop: Boolean,
         options: Bundle,
         requestCode: Int
     ) {
         val playload = Payload.Activity(clz)
-        playload.argument = argument
         playload.isPop = isPop
         playload.options = options
         playload.requestCode = requestCode
@@ -30,11 +28,11 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
 
     override fun startFragment(
         actionId: Int,
-        argument: BaseArgument,
+        args: Bundle?,
         animBuilder: AnimBuilder.() -> Unit
     ) {
         val playload = Payload.Fragment(actionId)
-        playload.argument = argument
+        playload.args = args
         playload.animBuilder = animBuilder
         uc.startFragmentEvent.value = playload
     }
