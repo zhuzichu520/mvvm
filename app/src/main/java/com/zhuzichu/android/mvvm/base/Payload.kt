@@ -9,15 +9,15 @@ internal sealed class Payload {
 
     internal data class Activity(
         var clz: Class<*>,
-        var argument: BaseArgument = ArgumentDefault(),
+        var args: Bundle = bundleOf(),
         var isPop: Boolean = false,
         var options: Bundle = bundleOf(),
         var requestCode: Int = 0
     )
 
     internal data class Fragment(
-        var actionId: Int,
-        var argument: BaseArgument = ArgumentDefault(),
+        var resId: Int,
+        var args: Bundle = bundleOf(),
         var animBuilder: AnimBuilder.() -> Unit = {
             enter = R.anim.slide_in_right
             exit = R.anim.slide_out_left

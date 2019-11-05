@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -24,19 +23,14 @@ import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
-abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
+abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
     DaggerFragment(), IBaseFragment, IBaseCommon {
-
-    companion object {
-        internal const val KEY_ARGUMENT = "KEY_ARGUMENT"
-    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     var binding: TBinding? = null
     lateinit var viewModel: TViewModel
-    lateinit var argument: TArgument
     lateinit var activityCtx: Activity
 
     val navController by lazy { activityCtx.findNavController(R.id.delegate_container) }
@@ -49,8 +43,6 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        argument =
-            (arguments?.getParcelable<BaseArgument>(KEY_ARGUMENT) ?: ArgumentDefault()).toCast()
         binding = DataBindingUtil.inflate(
             inflater,
             setLayoutId(),
@@ -90,7 +82,6 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
     private fun registUIChangeLiveDataCallback() {
         viewModel.uc.startActivityEvent.observe(this, Observer {
             val intent = Intent(activityCtx, it.clz)
-            intent.putExtra(KEY_ARGUMENT, it.argument)
             startActivityForResult(intent, it.requestCode, it.options)
             if (it.isPop) {
                 activityCtx.finish()
@@ -99,9 +90,9 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
 
         viewModel.uc.startFragmentEvent.observe(this, Observer {
             navController.navigate(
-                it.actionId,
-                bundleOf(KEY_ARGUMENT to it.argument),
-                getDefaultNavOptions(it.actionId, it.animBuilder)
+                it.resId,
+                it.args,
+                getDefaultNavOptions(it.resId, it.animBuilder)
             )
         })
 
@@ -191,20 +182,19 @@ abstract class BaseFragment<TArgument : BaseArgument, TBinding : ViewDataBinding
 
     override fun startActivity(
         clz: Class<*>,
-        argument: BaseArgument,
         isPop: Boolean,
         options: Bundle,
         requestCode: Int
     ) {
-        viewModel.startActivity(clz, argument, isPop, options, requestCode)
+        viewModel.startActivity(clz, isPop, options, requestCode)
     }
 
     override fun startFragment(
         actionId: Int,
-        argument: BaseArgument,
+        args: Bundle,
         animBuilder: AnimBuilder.() -> Unit
     ) {
-        viewModel.startFragment(actionId, argument, animBuilder)
+        viewModel.startFragment(actionId,args, animBuilder)
     }
 
 }
