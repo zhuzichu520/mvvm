@@ -3,6 +3,7 @@ package com.zhuzichu.android.mvvm.base
 import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.navigation.AnimBuilder
+import androidx.navigation.NavDirections
 
 
 open class ItemViewModel(
@@ -44,6 +45,10 @@ open class ItemViewModel(
         animBuilder: AnimBuilder.() -> Unit
     ) {
         viewModel.startFragment(actionId, args, animBuilder)
+    }
+
+    override fun startFragment(navDirections: NavDirections) {
+        viewModel.startFragment(navDirections)
     }
 
 }
