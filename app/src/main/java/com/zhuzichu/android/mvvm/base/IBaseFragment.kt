@@ -2,6 +2,8 @@ package com.zhuzichu.android.mvvm.base
 
 interface IBaseFragment {
 
+    fun initArgs() {}
+
     fun initViewObservable() {}
 
     fun initVariable() {}
