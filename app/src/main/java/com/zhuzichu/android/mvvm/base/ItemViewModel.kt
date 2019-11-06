@@ -47,8 +47,10 @@ open class ItemViewModel(
         viewModel.startFragment(actionId, args, animBuilder)
     }
 
-    override fun startFragment(navDirections: NavDirections) {
-        viewModel.startFragment(navDirections)
+    override fun startFragment(
+        navDirections: NavDirections,
+        animBuilder: AnimBuilder.() -> Unit
+    ) {
+        viewModel.startFragment(navDirections, animBuilder)
     }
-
 }

@@ -20,7 +20,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
         options: Bundle,
         requestCode: Int
     ) {
-        val playload = Payload.Activity(clz)
+        val playload = Payload.PayloadActivity(clz)
         playload.isPop = isPop
         playload.options = options
         playload.requestCode = requestCode
@@ -32,14 +32,19 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
         args: Bundle?,
         animBuilder: AnimBuilder.() -> Unit
     ) {
-        val playload = Payload.Fragment(actionId)
+        val playload = Payload.PayloadFragmentId(actionId)
         playload.args = args
         playload.animBuilder = animBuilder
         uc.startFragmentByResIdEvent.value = playload
     }
 
-    override fun startFragment(navDirections: NavDirections) {
-        uc.startFragmentByNavDirectionsEvent.value = navDirections
+    override fun startFragment(
+        navDirections: NavDirections,
+        animBuilder: AnimBuilder.() -> Unit
+    ) {
+        val playload = Payload.PlayloadFragmentDirections(navDirections)
+        playload.animBuilder = animBuilder
+        uc.startFragmentByNavDirectionsEvent.value = playload
     }
 
     override fun back() {
@@ -64,10 +69,11 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
 
 
     inner class UIChangeLiveData {
-        internal val startActivityEvent: SingleLiveEvent<Payload.Activity> = SingleLiveEvent()
-        internal val startFragmentByResIdEvent: SingleLiveEvent<Payload.Fragment> =
+        internal val startActivityEvent: SingleLiveEvent<Payload.PayloadActivity> =
             SingleLiveEvent()
-        internal val startFragmentByNavDirectionsEvent: SingleLiveEvent<NavDirections> =
+        internal val startFragmentByResIdEvent: SingleLiveEvent<Payload.PayloadFragmentId> =
+            SingleLiveEvent()
+        internal val startFragmentByNavDirectionsEvent: SingleLiveEvent<Payload.PlayloadFragmentDirections> =
             SingleLiveEvent()
         internal val onBackPressedEvent: SingleLiveEvent<Any> = SingleLiveEvent()
         internal val showLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()

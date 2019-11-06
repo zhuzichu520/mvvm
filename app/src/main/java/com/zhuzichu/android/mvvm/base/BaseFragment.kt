@@ -98,7 +98,10 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
         })
 
         viewModel.uc.startFragmentByNavDirectionsEvent.observe(this, Observer {
-            navController.navigate(it)
+            navController.navigate(
+                it.navDirections,
+                getDefaultNavOptions(it.navDirections.actionId, it.animBuilder)
+            )
         })
 
         viewModel.uc.onBackPressedEvent.observe(this, Observer {
@@ -202,8 +205,11 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
         viewModel.startFragment(actionId, args, animBuilder)
     }
 
-    override fun startFragment(navDirections: NavDirections) {
-        viewModel.startFragment(navDirections)
+    override fun startFragment(
+        navDirections: NavDirections,
+        animBuilder: AnimBuilder.() -> Unit
+    ) {
+        viewModel.startFragment(navDirections, animBuilder)
     }
 
 }
