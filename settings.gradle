@@ -1,2 +1,8 @@
 include ':app'
 rootProject.name='mvvm'
+
+include ':libs'
+project(':libs').projectDir = new File("../libs","app")
+
+include ':widget'
+project(':widget').projectDir = new File("../widget","app")
