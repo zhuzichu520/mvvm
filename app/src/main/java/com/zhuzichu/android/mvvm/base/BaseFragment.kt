@@ -86,7 +86,7 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
     }
 
     private fun registUIChangeLiveDataCallback() {
-        viewModel.uc.startActivityEvent.observe(this, Observer {
+        viewModel.uc.startActivityEvent.observe(viewLifecycleOwner, Observer {
             val intent = Intent(activityCtx, it.clz)
             startActivityForResult(intent, it.requestCode, it.options)
             if (it.isPop) {
@@ -94,7 +94,7 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
             }
         })
 
-        viewModel.uc.startFragmentByResIdEvent.observe(this, Observer {
+        viewModel.uc.startFragmentByResIdEvent.observe(viewLifecycleOwner, Observer {
             navController.navigate(
                 it.resId,
                 it.args,
@@ -102,35 +102,35 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
             )
         })
 
-        viewModel.uc.startFragmentByNavDirectionsEvent.observe(this, Observer {
+        viewModel.uc.startFragmentByNavDirectionsEvent.observe(viewLifecycleOwner, Observer {
             navController.navigate(
                 it.navDirections,
                 getDefaultNavOptions(it.navDirections.actionId, it.animBuilder)
             )
         })
 
-        viewModel.uc.onBackPressedEvent.observe(this, Observer {
+        viewModel.uc.onBackPressedEvent.observe(viewLifecycleOwner, Observer {
             activityCtx.onBackPressed()
         })
 
-        viewModel.uc.showLoadingEvent.observe(this, Observer {
+        viewModel.uc.showLoadingEvent.observe(viewLifecycleOwner, Observer {
             closeKeyboard(requireContext())
             view?.postDelayed({
                 LoadingMaker.showLoadingDialog(requireContext())
             }, 75)
         })
 
-        viewModel.uc.hideLoadingEvent.observe(this, Observer {
+        viewModel.uc.hideLoadingEvent.observe(viewLifecycleOwner, Observer {
             view?.postDelayed({
                 LoadingMaker.dismissLodingDialog()
             }, 75)
         })
 
-        viewModel.uc.toastStringResEvent.observe(this, Observer {
+        viewModel.uc.toastStringResEvent.observe(viewLifecycleOwner, Observer {
             it.toast(context = requireContext())
         })
 
-        viewModel.uc.toastStringEvent.observe(this, Observer {
+        viewModel.uc.toastStringEvent.observe(viewLifecycleOwner, Observer {
             it.toast(context = requireContext())
         })
 

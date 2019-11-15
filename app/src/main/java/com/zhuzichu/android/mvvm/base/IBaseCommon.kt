@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 import androidx.navigation.AnimBuilder
 import androidx.navigation.NavDirections
+import com.zhuzichu.android.mvvm.MvvmManager
 import com.zhuzichu.android.mvvm.R
 
 interface IBaseCommon {
@@ -29,22 +30,12 @@ interface IBaseCommon {
     fun startFragment(
         actionId: Int,
         args: Bundle? = null,
-        animBuilder: AnimBuilder.() -> Unit = {
-            enter = R.anim.default_enter
-            exit = R.anim.default_exit
-            popEnter = R.anim.default_pop_enter
-            popExit = R.anim.default_pop_exit
-        }
+        animBuilder: AnimBuilder.() -> Unit = MvvmManager.animBuilder
     )
 
     fun startFragment(
         navDirections: NavDirections,
-        animBuilder: AnimBuilder.() -> Unit = {
-            enter = R.anim.default_enter
-            exit = R.anim.default_exit
-            popEnter = R.anim.default_pop_enter
-            popExit = R.anim.default_pop_exit
-        }
+        animBuilder: AnimBuilder.() -> Unit = MvvmManager.animBuilder
     )
 
 }
