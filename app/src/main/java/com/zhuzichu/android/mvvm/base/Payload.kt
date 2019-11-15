@@ -20,20 +20,20 @@ internal sealed class Payload {
         var resId: Int,
         var args: Bundle? = null,
         var animBuilder: AnimBuilder.() -> Unit = {
-            enter = R.anim.slide_in_right
-            exit = R.anim.slide_out_left
-            popEnter = R.anim.slide_in_left
-            popExit = R.anim.slide_out_right
+            enter = R.anim.default_enter
+            exit = R.anim.default_exit
+            popEnter = R.anim.default_pop_enter
+            popExit = R.anim.default_pop_exit
         }
     )
 
     internal data class PlayloadFragmentDirections(
         var navDirections: NavDirections,
         var animBuilder: AnimBuilder.() -> Unit = {
-            enter = R.anim.slide_in_right
-            exit = R.anim.slide_out_left
-            popEnter = R.anim.slide_in_left
-            popExit = R.anim.slide_out_right
+            enter = R.anim.default_enter
+            exit = R.anim.default_exit
+            popEnter = R.anim.default_pop_enter
+            popExit = R.anim.default_pop_exit
         }
     )
 

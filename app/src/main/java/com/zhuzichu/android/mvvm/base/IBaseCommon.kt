@@ -30,20 +30,20 @@ interface IBaseCommon {
         actionId: Int,
         args: Bundle? = null,
         animBuilder: AnimBuilder.() -> Unit = {
-            enter = R.anim.slide_in_right
-            exit = R.anim.slide_out_left
-            popEnter = R.anim.slide_in_left
-            popExit = R.anim.slide_out_right
+            enter = R.anim.default_enter
+            exit = R.anim.default_exit
+            popEnter = R.anim.default_pop_enter
+            popExit = R.anim.default_pop_exit
         }
     )
 
     fun startFragment(
         navDirections: NavDirections,
         animBuilder: AnimBuilder.() -> Unit = {
-            enter = R.anim.slide_in_right
-            exit = R.anim.slide_out_left
-            popEnter = R.anim.slide_in_left
-            popExit = R.anim.slide_out_right
+            enter = R.anim.default_enter
+            exit = R.anim.default_exit
+            popEnter = R.anim.default_pop_enter
+            popExit = R.anim.default_pop_exit
         }
     )
 
