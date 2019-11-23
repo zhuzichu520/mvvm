@@ -4,7 +4,7 @@ import com.zhuzichu.android.libs.tool.toCast
 
 class ResponseCommand<T, R>(
     private var execute: (() -> R?)? = null,
-    private var consumer: ((parameter: T?) -> R?)? = null,
+    private var consumer: (T?.() -> R?)? = null,
     private var canExecute0: (() -> Boolean)? = null
 ) {
     fun execute(): R? {
