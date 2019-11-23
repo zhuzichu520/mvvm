@@ -2,7 +2,6 @@ package com.zhuzichu.android.mvvm.base
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.zhuzichu.android.libs.tool.closeKeyboard
+import com.zhuzichu.android.libs.tool.startActivity4Result
 import com.zhuzichu.android.libs.tool.toCast
 import com.zhuzichu.android.mvvm.R
 import com.zhuzichu.android.widget.dialog.loading.LoadingMaker
@@ -87,8 +87,7 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
 
     private fun registUIChangeLiveDataCallback() {
         viewModel.uc.startActivityEvent.observe(viewLifecycleOwner, Observer {
-            val intent = Intent(activityCtx, it.clz)
-            startActivityForResult(intent, it.requestCode, it.options)
+            startActivity4Result(activityCtx, it.clz, it.requestCode, it.args, it.options)
             if (it.isPop) {
                 activityCtx.finish()
             }

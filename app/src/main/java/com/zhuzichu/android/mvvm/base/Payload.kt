@@ -5,7 +5,6 @@ import androidx.core.os.bundleOf
 import androidx.navigation.AnimBuilder
 import androidx.navigation.NavDirections
 import com.zhuzichu.android.mvvm.MvvmManager
-import com.zhuzichu.android.mvvm.R
 
 internal sealed class Payload {
 

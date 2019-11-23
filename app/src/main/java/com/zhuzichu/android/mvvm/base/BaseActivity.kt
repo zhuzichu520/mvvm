@@ -6,6 +6,7 @@ import android.widget.FrameLayout
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.zhuzichu.android.libs.tool.startActivity4Result
 import com.zhuzichu.android.mvvm.R
 import dagger.android.support.DaggerAppCompatActivity
 
@@ -44,9 +45,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         options: Bundle = bundleOf(),
         requestCode: Int = 0
     ) {
-        val intent = Intent(baseContext, clz)
-        intent.putExtras(args)
-        startActivityForResult(intent, requestCode, options)
+        startActivity4Result(this, clz, requestCode, args, options)
         if (isPop) {
             finish()
         }
