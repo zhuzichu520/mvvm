@@ -20,12 +20,11 @@ import com.zhuzichu.android.libs.tool.toCast
 import com.zhuzichu.android.mvvm.R
 import com.zhuzichu.android.widget.dialog.loading.LoadingMaker
 import com.zhuzichu.android.widget.toast.toast
-import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
 abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
-    DaggerFragment(), IBaseFragment, IBaseCommon {
+    BaseDaggerFragment(), IBaseFragment, IBaseCommon {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
