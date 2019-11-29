@@ -7,8 +7,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.android.libs.tool.startActivity4Result
 import com.zhuzichu.android.mvvm.R
+import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity : BaseDaggerActivity() {
+abstract class BaseActivity : DaggerAppCompatActivity() {
 
     abstract fun setNavGraph(): Int
 
