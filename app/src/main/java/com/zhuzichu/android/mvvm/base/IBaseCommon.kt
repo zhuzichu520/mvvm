@@ -29,7 +29,7 @@ interface IBaseCommon {
 
     fun startFragment(
         actionId: Int,
-        args: Bundle? = null,
+        args: Bundle = bundleOf(),
         animBuilder: AnimBuilder.() -> Unit = MvvmManager.animBuilder
     )
 

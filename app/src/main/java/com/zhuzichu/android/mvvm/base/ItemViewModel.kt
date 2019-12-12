@@ -42,7 +42,7 @@ open class ItemViewModel(
 
     override fun startFragment(
         actionId: Int,
-        args: Bundle?,
+        args: Bundle,
         animBuilder: AnimBuilder.() -> Unit
     ) {
         viewModel.startFragment(actionId, args, animBuilder)
