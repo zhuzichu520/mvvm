@@ -32,7 +32,7 @@ open class ItemViewModel(
 
     override fun startActivity(
         clz: Class<*>,
-        args: Bundle?,
+        args: Bundle,
         isPop: Boolean,
         options: Bundle,
         requestCode: Int

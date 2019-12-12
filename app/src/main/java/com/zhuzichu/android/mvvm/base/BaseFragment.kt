@@ -194,7 +194,7 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
 
     override fun startActivity(
         clz: Class<*>,
-        args: Bundle?,
+        args: Bundle,
         isPop: Boolean,
         options: Bundle,
         requestCode: Int
