@@ -32,11 +32,12 @@ open class ItemViewModel(
 
     override fun startActivity(
         clz: Class<*>,
+        args: Bundle?,
         isPop: Boolean,
         options: Bundle,
         requestCode: Int
     ) {
-        viewModel.startActivity(clz, isPop, options, requestCode)
+        viewModel.startActivity(clz, args, isPop, options, requestCode)
     }
 
     override fun startFragment(

@@ -35,9 +35,5 @@ j
 :app/src/main/java/com/zhuzichu/android/mvvm/MvvmManager.kt,d\4\d44354aa30d0549e58ef030ce0450fc34b3c8fb8
 p
 @app/src/main/java/com/zhuzichu/android/mvvm/base/BaseActivity.kt,a\1\a1c2abc44a3ce86cbc5540d5a8d7fe16640786e8
-v
-Fapp/src/main/java/com/zhuzichu/android/mvvm/base/BaseDaggerActivity.kt,d\5\d5a3b57219b3b321f094f1880afe4e014db470d4
-v
-Fapp/src/main/java/com/zhuzichu/android/mvvm/base/BaseDaggerFragment.kt,0\7\078f4ec41f63da204a94bcc0e371ddbec1d7fa15
 S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0

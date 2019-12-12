@@ -16,11 +16,13 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
 
     override fun startActivity(
         clz: Class<*>,
+        args: Bundle?,
         isPop: Boolean,
         options: Bundle,
         requestCode: Int
     ) {
         val playload = Payload.PayloadActivity(clz)
+        playload.args=args
         playload.isPop = isPop
         playload.options = options
         playload.requestCode = requestCode

@@ -21,6 +21,7 @@ interface IBaseCommon {
 
     fun startActivity(
         clz: Class<*>,
+        args: Bundle?,
         isPop: Boolean = false,
         options: Bundle = bundleOf(),
         requestCode: Int = 0
