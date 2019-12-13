@@ -37,3 +37,9 @@ p
 @app/src/main/java/com/zhuzichu/android/mvvm/base/BaseActivity.kt,a\1\a1c2abc44a3ce86cbc5540d5a8d7fe16640786e8
 S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+v
+Fapp/src/main/java/com/zhuzichu/android/mvvm/base/LifecycleViewModel.kt,5\4\545ad1d041f88fe883ac8838087caf8254423e36
+q
+Aapp/src/main/java/com/zhuzichu/android/mvvm/base/IBaseFragment.kt,f\9\f9c24c1501093250b0906b04d3997ad6b30c719d
+q
+Aapp/src/main/java/com/zhuzichu/android/mvvm/base/ItemViewModel.kt,7\7\77927ac5938625eee14825e14be94b9af369d0f9
