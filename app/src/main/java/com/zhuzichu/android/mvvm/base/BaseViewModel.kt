@@ -1,7 +1,6 @@
 package com.zhuzichu.android.mvvm.base
 
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.navigation.AnimBuilder
 import androidx.navigation.NavDirections
@@ -61,14 +60,6 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
         uc.hideLoadingEvent.postCall()
     }
 
-    override fun toast(text: String?) {
-        uc.toastStringEvent.postValue(text)
-    }
-
-    override fun toast(@StringRes id: Int) {
-        uc.toastStringResEvent.postValue(id)
-    }
-
 
     inner class UIChangeLiveData {
         internal val startActivityEvent: SingleLiveEvent<Payload.PayloadActivity> =
@@ -80,7 +71,5 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
         internal val onBackPressedEvent: SingleLiveEvent<Any> = SingleLiveEvent()
         internal val showLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
         internal val hideLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-        internal val toastStringEvent: SingleLiveEvent<String?> = SingleLiveEvent()
-        internal val toastStringResEvent: SingleLiveEvent<Int> = SingleLiveEvent()
     }
 }

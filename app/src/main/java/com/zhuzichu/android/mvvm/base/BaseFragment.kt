@@ -14,12 +14,12 @@ import androidx.navigation.AnimBuilder
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import com.zhuzichu.android.libs.internal.MainHandler
 import com.zhuzichu.android.libs.tool.closeKeyboard
 import com.zhuzichu.android.libs.tool.startActivity4Result
 import com.zhuzichu.android.libs.tool.toCast
 import com.zhuzichu.android.mvvm.R
 import com.zhuzichu.android.widget.dialog.loading.LoadingMaker
-import com.zhuzichu.android.widget.toast.toast
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
@@ -113,24 +113,16 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
         })
 
         viewModel.uc.showLoadingEvent.observe(viewLifecycleOwner, Observer {
-            closeKeyboard(requireContext())
-            view?.postDelayed({
-                LoadingMaker.showLoadingDialog(requireContext())
-            }, 75)
+            closeKeyboard(activityCtx)
+            MainHandler.postDelayed {
+                LoadingMaker.showLoadingDialog(activityCtx)
+            }
         })
 
         viewModel.uc.hideLoadingEvent.observe(viewLifecycleOwner, Observer {
-            view?.postDelayed({
+            MainHandler.postDelayed {
                 LoadingMaker.dismissLodingDialog()
-            }, 75)
-        })
-
-        viewModel.uc.toastStringResEvent.observe(viewLifecycleOwner, Observer {
-            it.toast(context = requireContext())
-        })
-
-        viewModel.uc.toastStringEvent.observe(viewLifecycleOwner, Observer {
-            it.toast(context = requireContext())
+            }
         })
 
     }
@@ -182,14 +174,6 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
 
     override fun hideLoading() {
         viewModel.hideLoading()
-    }
-
-    override fun toast(text: String?) {
-        viewModel.toast(text)
-    }
-
-    override fun toast(id: Int) {
-        viewModel.toast(id)
     }
 
     override fun startActivity(

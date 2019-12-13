@@ -22,14 +22,6 @@ open class ItemViewModel(
         viewModel.hideLoading()
     }
 
-    override fun toast(text: String?) {
-        viewModel.toast(text)
-    }
-
-    override fun toast(id: Int) {
-        viewModel.toast(id)
-    }
-
     override fun startActivity(
         clz: Class<*>,
         args: Bundle,
