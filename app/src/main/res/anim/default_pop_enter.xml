@@ -7,9 +7,4 @@
         android:fromXDelta="-40%p"
         android:toXDelta="0%p" />
 
-    <alpha
-        android:duration="@integer/default_duration"
-        android:fromAlpha="0.85"
-        android:toAlpha="1" />
-
 </set>
