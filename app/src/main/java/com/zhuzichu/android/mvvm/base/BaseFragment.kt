@@ -148,6 +148,11 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
 
     override fun onResume() {
         super.onResume()
+        if (!viewModel.isInitLazyView) {
+            initLazyView()
+            viewModel.isInitLazyView = true
+        }
+
         if (!viewModel.isInitLazy) {
             initLazyData()
             viewModel.isInitLazy = true
@@ -156,6 +161,7 @@ abstract class BaseFragment<TBinding : ViewDataBinding, TViewModel : BaseViewMod
 
     override fun onDestroyView() {
         super.onDestroyView()
+        viewModel.isInitLazyView=false
         binding?.unbind()
         binding = null
     }

@@ -12,6 +12,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
 
     var isInitData = false
     var isInitLazy = false
+    var isInitLazyView = false
 
     override fun startActivity(
         clz: Class<*>,
@@ -21,7 +22,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleViewModel, IBaseCommon {
         requestCode: Int
     ) {
         val playload = Payload.PayloadActivity(clz)
-        playload.args=args
+        playload.args = args
         playload.isPop = isPop
         playload.options = options
         playload.requestCode = requestCode
